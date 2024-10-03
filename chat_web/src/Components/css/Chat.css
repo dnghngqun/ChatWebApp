@@ -1,0 +1,208 @@
+:root {
+  --height-chat: 30px;
+}
+#container-chat {
+  background-color: #222222;
+  height: 70vh;
+  width: 70vw;
+  text-align: center;
+  padding: 0 20px;
+  border-radius: 5px;
+}
+
+hr {
+  background-color: aliceblue;
+}
+#container-chat .title {
+  font-size: 30px;
+  color: aliceblue;
+  line-height: 10vh;
+  height: 10vh;
+}
+
+#container-chat .chat-content {
+  height: calc(50vh - 2px);
+}
+
+#container-chat .container-send {
+  height: 10vh;
+  width: 100%;
+}
+
+.chat-item {
+  width: 100%;
+  display: block;
+  margin: 10px 0;
+}
+
+.chat-noti span {
+  text-align: center;
+  font-size: 13px;
+  font-weight: 400;
+  color: #898585;
+}
+
+.chat-response {
+  text-align: left !important;
+  padding-left: var(--height-chat);
+  position: relative;
+}
+.chat-request {
+  text-align: right !important;
+  padding-right: var(--height-chat);
+  position: relative;
+  height: auto;
+}
+
+.chat-response .container-chat-item .avatar {
+  position: absolute;
+  bottom: 5px;
+  left: 0;
+  width: var(--height-chat);
+  height: var(--height-chat);
+  background-color: #497c2b;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: aliceblue;
+  font-size: 15px;
+}
+
+.chat-request .container-chat-item .avatar {
+  position: absolute;
+  bottom: 5px;
+  right: 0;
+  width: var(--height-chat);
+  height: var(--height-chat);
+  background-color: #497c2b;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: aliceblue;
+  font-size: 15px;
+}
+.container-chat-item .user-item {
+  padding-left: 10px;
+}
+
+.chat-user .container-chat-item .message-container {
+  max-width: 50%;
+  padding: 0;
+  border-radius: 20px 30px 30px 20px;
+  overflow: hidden;
+}
+
+.chat-request .container-chat-item .message-container {
+  border-radius: 30px 20px 20px 30px;
+  max-width: 50%;
+  padding: 0;
+  overflow: hidden;
+  margin-left: auto;
+}
+
+.chat-user .container-chat-item .message-content {
+  display: inline-block;
+  margin-top: 5px;
+  background-color: #2c2c2c;
+  color: aliceblue;
+  padding: 10px 20px 10px 20px;
+  word-wrap: break-word; /* Tự xuống dòng nếu từ quá dài */
+  white-space: normal; /* Cho phép nội dung xuống dòng */
+  overflow-wrap: break-word;
+}
+.chat-user .container-chat-item .message-content span {
+  text-align: left;
+  display: block;
+}
+
+.container-chat-item .message-container .first-message {
+  margin-top: 0 !important;
+}
+.chat-response .container-chat-item .message-content {
+  border-radius: 10px 30px 30px 10px;
+}
+
+.chat-request .container-chat-item .message-content {
+  border-radius: 30px 10px 10px 30px;
+}
+
+.chat-request .container-chat-item .message-content {
+  background-image: linear-gradient(to bottom right, #708f96, #aa895f);
+}
+.chat-response .container-chat-item .username {
+  font-size: 12px;
+  font-weight: 500;
+  color: #4a4848;
+  margin-left: 1.5%;
+}
+.chat-request .container-chat-item .username {
+  font-size: 12px;
+  font-weight: 500;
+  color: #4a4848;
+  margin-right: 1.5%;
+}
+.chat-content {
+  overflow-y: auto !important;
+  height: 80%;
+  scroll-behavior: smooth;
+}
+
+.chat-request .container-chat-item .user-item {
+  padding-left: 0;
+  padding-right: 10px;
+}
+
+.chat-request .container-chat-item .user-item {
+  width: 100%;
+}
+
+.container-send {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.container-send input.input-message {
+  width: 90%;
+  height: 40px;
+  border-radius: 20px;
+  padding: 0 20px;
+  outline: none;
+  border: 0;
+  font-size: 15px;
+  background-color: #2b2b2b;
+  color: aliceblue;
+}
+
+.container-send .btn-send {
+  width: 9%;
+  height: 40px;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+.btn-send:active {
+  transform: scale(0.9);
+  transition: 0.1s all;
+}
+
+/* responsive */
+@media only screen and (max-width: 700px) and (min-width: 501px) {
+}
+/* mobile */
+@media only screen and (max-width: 500px) {
+  #container-chat {
+    width: 100vw;
+    height: 100vh;
+  }
+  #container-chat .chat-content {
+    height: calc(80vh - 2px);
+  }
+  .chat-request .container-chat-item .message-container {
+    max-width: 90%;
+  }
+  .chat-response .container-chat-item .message-container {
+    max-width: 90%;
+  }
+}

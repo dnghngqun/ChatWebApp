@@ -1,0 +1,49 @@
+#container-home {
+  align-items: center;
+  text-align: center;
+  width: 500px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  background-color: aliceblue;
+  border-radius: 2px;
+  padding: 50px 0;
+}
+
+#container-home .text-home {
+  margin: 0 20px 20px;
+  font-size: 35px;
+}
+
+#container-home .input-name {
+  width: 80%;
+  height: 45px;
+  display: block;
+  margin: 10px auto;
+  padding: 10px;
+}
+
+.input-name::placeholder {
+  padding: 0;
+}
+
+#container-home .btn-start {
+  margin-top: 10px;
+  width: 130px;
+  height: 30px;
+  background-color: #e0d8cc;
+  cursor: pointer;
+  outline: none;
+  border: 2px solid #e1d5c4;
+  border-radius: 20px;
+}
+
+#container-home .btn-start:hover {
+  background-color: #708f96;
+  border: #708f96;
+  color: aliceblue;
+  transition: all 0.3s;
+}
+
+#container-home .btn-start:active {
+  transform: scale(0.9);
+  transition: all 0.1s;
+}
