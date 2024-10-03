@@ -27,7 +27,7 @@ const Chat = () => {
       return;
     }
 
-    const socket = new SockJS("http://localhost:8080/ws");
+    const socket = new SockJS("https://chatwebappbe-production.up.railway.app/ws");
     const client = new Client({
       webSocketFactory: () => socket,
 
