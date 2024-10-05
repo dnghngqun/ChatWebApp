@@ -25,7 +25,7 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer, WebSoc
          *  SockJS được sử dụng để bật tùy chọn dự phòng
          *  cho các trình duyệt không hỗ trợ websocket.
         */
-        registry.addEndpoint("/ws").setAllowedOrigins("http://localhost:3000").withSockJS();
+        registry.addEndpoint("/ws").setAllowedOrigins("http://localhost:3000","https://chat-web-app-nu.vercel.app").withSockJS();
     }
     @Override
     public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {

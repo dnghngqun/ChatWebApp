@@ -1,6 +1,7 @@
 package com.hongquan.websocket.controllers;
 
 import com.hongquan.websocket.model.ChatMessage;
+import com.hongquan.websocket.model.SignalMessage;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.handler.annotation.SendTo;
@@ -24,4 +25,10 @@ public class ChatController {
         return chatMessage;
     }
 
+    @MessageMapping("/chat/signal")
+    @SendTo("/topic/public")
+    public SignalMessage handleSignaling(SignalMessage signalMessage) {
+        // Xử lý tín hiệu WebRTC: Chỉ đơn giản là phát lại cho tất cả client
+        return signalMessage;
+    }
 }
