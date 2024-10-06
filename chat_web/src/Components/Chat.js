@@ -13,106 +13,6 @@ const Chat = () => {
   const [stompClient, setStompClient] = useState(null);
 
   const chatContentRef = useRef(null);
-  const [peerConnection, setPeerConnection] = useState(null);
-const localVideoRef = useRef(null);
-const remoteVideoRef = useRef(null);
-
-useEffect(() => {
-  const setupWebRTC = async () => {
-    const localStream = await navigator.mediaDevices.getUserMedia({
-      video: true,
-      audio: true,
-    });
-
-    // Hiển thị video của bản thân
-    localVideoRef.current.srcObject = localStream;
-
-    const pc = new RTCPeerConnection({
-      iceServers: [{ urls: "stun:stun.l.google.com:19302" }],
-    });
-
-    localStream.getTracks().forEach((track) => {
-      pc.addTrack(track, localStream);
-    });
-
-    pc.ontrack = (event) => {
-      // Nhận và hiển thị video từ remote peer
-      remoteVideoRef.current.srcObject = event.streams[0];
-    };
-
-    pc.onicecandidate = (event) => {
-      if (event.candidate) {
-        stompClient.publish({
-          destination: "/app/chat/signal",
-          body: JSON.stringify({
-            type: "ICE_CANDIDATE",
-            candidate: event.candidate,
-          }),
-        });
-      }
-    };
-
-    setPeerConnection(pc);
-  };
-
-  setupWebRTC();
-}, [stompClient]);
-
-// Gửi offer khi bắt đầu cuộc gọi
-const startCall = async () => {
-  const offer = await peerConnection.createOffer();
-  await peerConnection.setLocalDescription(offer);
-
-  stompClient.publish({
-    destination: "/app/chat/signal",
-    body: JSON.stringify({
-      type: "OFFER",
-      offer: offer,
-    }),
-  });
-};
-
-// Nhận tín hiệu WebRTC từ server
-useEffect(() => {
-  if (stompClient) {
-    stompClient.subscribe("/topic/public", (message) => {
-      const data = JSON.parse(message.body);
-
-      if (data.type === "OFFER") {
-        handleOffer(data);
-      } else if (data.type === "ANSWER") {
-        handleAnswer(data);
-      } else if (data.type === "ICE_CANDIDATE") {
-        handleCandidate(data);
-      }
-    });
-  }
-}, [stompClient]);
-
-const handleOffer = async (data) => {
-  await peerConnection.setRemoteDescription(new RTCSessionDescription(data.offer));
-  const answer = await peerConnection.createAnswer();
-  await peerConnection.setLocalDescription(answer);
-
-  stompClient.publish({
-    destination: "/app/chat/signal",
-    body: JSON.stringify({
-      type: "ANSWER",
-      answer: answer,
-    }),
-  });
-};
-
-const handleAnswer = async (data) => {
-  await peerConnection.setRemoteDescription(new RTCSessionDescription(data.answer));
-};
-
-const handleCandidate = async (data) => {
-  if (data.candidate) {
-    await peerConnection.addIceCandidate(new RTCIceCandidate(data.candidate));
-  }
-};
-
   // tự động cuộn khi có tin nhắn
   useEffect(() => {
     if (chatContentRef.current) {
@@ -127,7 +27,9 @@ const handleCandidate = async (data) => {
       return;
     }
 
-    const socket = new SockJS("https://chatwebappbe-production.up.railway.app/ws");
+    const socket = new SockJS(
+      "https://chatwebappbe-production.up.railway.app/ws"
+    );
     const client = new Client({
       webSocketFactory: () => socket,
 
@@ -211,14 +113,6 @@ const handleCandidate = async (data) => {
         <b>Chat</b>
       </h1>
       <hr />
-       {/* Thêm phần hiển thị video */}
-  <div id="video-container">
-    <video id="localVideo" autoPlay muted style={{ width: "50%" }}></video>
-    <video id="remoteVideo" autoPlay style={{ width: "50%" }}></video>
-  </div>
-  <button className="btn-call" onClick={startCall}>
-    Start Call
-  </button>
       <ul className="chat-content" ref={chatContentRef}>
         {messages.map((mess, index) => {
           return (
